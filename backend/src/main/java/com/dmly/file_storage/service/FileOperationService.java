@@ -1,5 +1,6 @@
 package com.dmly.file_storage.service;
 
+import com.dmly.file_storage.model.FileContainer;
 import com.dmly.file_storage.model.FileDetails;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,5 +12,7 @@ public interface FileOperationService {
     List<FileDetails> listFiles();
 
     Path saveFile(MultipartFile receivedFile);
+
+    FileContainer getFileResource(String fileName);
 
 }
