@@ -4,6 +4,7 @@ import com.dmly.file_storage.model.FileDetails;
 import com.dmly.file_storage.properties.PropertiesHolder;
 import com.dmly.file_storage.service.FileOperationService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.FileVisitOption;
@@ -42,6 +43,24 @@ public class FileOperationServiceImpl implements FileOperationService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Path saveFile(MultipartFile receivedFile) {
+
+        Path filePath = Path.of(storageDirectory.toAbsolutePath().toString(), receivedFile.getOriginalFilename());
+
+        try {
+            if (Files.exists(filePath)) {
+                Files.delete(filePath);
+            }
+
+            Files.write(filePath, receivedFile.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return filePath;
     }
 
     private FileDetails convertFileDetails(Path path) {

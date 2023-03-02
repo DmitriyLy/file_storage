@@ -4,3 +4,12 @@ server:
 file:
   storage:
     directory: storage
+
+spring:
+  servlet:
+    multipart:
+      max-request-size: 20MB
+      max-file-size: 20MB
+logging:
+  level:
+    root: debug
